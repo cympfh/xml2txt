@@ -1,0 +1,21 @@
+{
+  "name": "xml2txt",
+  "version": "1.0.0",
+  "description": "正しい文法で書かれたXML文書からテキストだけを抜き出す。 ただし、中身を見る必要があるタグ (content tags) と、 そのタグより下は見ないタグ (ignore tags) との分類をする。",
+  "main": "main.coffee",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cympfh/xml2txt.git"
+  },
+  "author": "cympfh",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/cympfh/xml2txt/issues"
+  },
+  "homepage": "https://github.com/cympfh/xml2txt",
+  { "dependencies" : { "cheerio" : "latest" }
+  }
+}

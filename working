@@ -1,2 +1,0 @@
-wget http://szksrv.isc.chubu.ac.jp/xml/coordinate/coordi1.xml
-sudo npm -g i cheerio
