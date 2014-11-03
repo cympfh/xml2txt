@@ -45,8 +45,8 @@ json_path = opts.get('tags')
 doc_path = opts.get('doc')
 out_path = opts.get('output')
 
-ig = opts.get('ignore')
-ct = opts.get('content')
+igs = opts.get('ignore')
+cts = opts.get('content')
 
 # load json
 #
@@ -62,8 +62,15 @@ put = (ls, x) ->
   if not (x in ls)
     ls.push x
 
-put setting.ignore, ig if ig
-put setting.content, ct if ct
+if igs
+  igs.split(',').forEach (ig) ->
+    ig = ig.trim()
+    put setting.ignore, ig
+
+if cts
+  cts.split(',').forEach (ct) ->
+    ct = ct.trim()
+    put setting.content, ct
 
 fs.writeFileSync json_path, JSON.stringify setting
 

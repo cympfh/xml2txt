@@ -6,7 +6,8 @@
 
 ## 利用の例
 
-![タグ分類してる様子](./hoge.png)
+![](img/h1.png)
+![](img/h2.png)
 
 ## usage 
 
