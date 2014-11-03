@@ -16,6 +16,5 @@
     "url": "https://github.com/cympfh/xml2txt/issues"
   },
   "homepage": "https://github.com/cympfh/xml2txt",
-  { "dependencies" : { "cheerio" : "latest" }
-  }
+  "dependencies" : { "cheerio" : "latest" }
 }
