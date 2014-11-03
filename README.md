@@ -9,6 +9,11 @@
 ![](img/h1.png)
 ![](img/h2.png)
 
+```sh
+cat sample/html.json
+{"content":["html","body","h2","p","div","b","font","a"],"ignore":["head","br","math","hr","img"]}
+```
+
 ## usage 
 
 ### 分類
