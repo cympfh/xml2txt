@@ -92,14 +92,32 @@ analysis = (fn, out) ->
             undefined
           else
             ++cx
-            console.warn elem.name
+            console.warn "<#{elem.name}> is unknown."
 
   sub $._root.children
   if (cx is 0) and (not out)
     console.warn "#{String.fromCharCode(27)}[32mpassed!#{String.fromCharCode(27)}[m"
 
+xmlfilep = (path) ->
+  return true if path.slice(-4) is '.xml'
+  return true if path.slice(-5) is '.html'
+  return true if path.slice(-6) is '.xhtml'
+  return false
+
 if fs.existsSync doc_path
-  analysis doc_path, out_path
+  if fs.statSync(doc_path).isDirectory()
+    fs.readdirSync(doc_path).forEach (item) ->
+      fpath = path.join doc_path, item
+      opath =
+        if out_path
+          path.join out_path, item + '.txt'
+        else
+          false
+      if xmlfilep fpath
+        console.warn '#',fpath
+        analysis fpath, opath
+  else
+    analysis doc_path, out_path
 else
   console.warn "#{doc_path} not exist?"
 
