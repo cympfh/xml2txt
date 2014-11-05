@@ -98,6 +98,8 @@ analysis = (fn, out) ->
   if (cx is 0) and (not out)
     console.warn "#{String.fromCharCode(27)}[32mpassed!#{String.fromCharCode(27)}[m"
 
+  return (cx is 0)
+
 xmlfilep = (path) ->
   return true if path.slice(-4) is '.xml'
   return true if path.slice(-5) is '.html'
@@ -106,6 +108,7 @@ xmlfilep = (path) ->
 
 if fs.existsSync doc_path
   if fs.statSync(doc_path).isDirectory()
+    bl = true
     fs.readdirSync(doc_path).forEach (item) ->
       fpath = path.join doc_path, item
       opath =
@@ -115,7 +118,10 @@ if fs.existsSync doc_path
           false
       if xmlfilep fpath
         console.warn '#',fpath
-        analysis fpath, opath
+        re = analysis fpath, opath
+        bl = bl and re
+    if bl and (not out_path)
+      console.warn "#{String.fromCharCode(27)}[34mall passed!#{String.fromCharCode(27)}[m"
   else
     analysis doc_path, out_path
 else
