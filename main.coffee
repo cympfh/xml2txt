@@ -38,6 +38,16 @@ options = [
     description: 'output file'
     value: true
   }
+  {
+    long: 'to'
+    description: 'replace [--from] tag with this text'
+    value: true
+  }
+  {
+    long: 'from'
+    description: 'replace this tag with [--to] text'
+    value: true
+  }
 ]
 opts.parse options, true
 
@@ -48,6 +58,9 @@ out_path = opts.get('output')
 igs = opts.get('ignore')
 cts = opts.get('content')
 
+from_tag = opts.get('from')
+to_text = opts.get('to')
+
 # load json
 #
 json_path = path.resolve json_path
@@ -57,6 +70,7 @@ else
   setting =
     content: []
     ignore: []
+    subst: []
 
 put = (ls, x) ->
   if not (x in ls)
@@ -71,6 +85,16 @@ if cts
   cts.split(',').forEach (ct) ->
     ct = ct.trim()
     put setting.content, ct
+
+if from_tag and to_text
+  setting.subst.push
+    from: from_tag
+    to: to_text
+
+findWithFrom = (tag) ->
+  for o in setting.subst
+    return o.to if o.from is tag
+  return false
 
 fs.writeFileSync json_path, JSON.stringify setting
 
@@ -90,6 +114,10 @@ analysis = (fn, out) ->
             sub elem.children
           when elem.name in setting.ignore
             undefined
+          when findWithFrom elem.name
+            if out
+              alt = findWithFrom elem.name
+              fs.appendFileSync out, alt
           else
             ++cx
             console.warn "<#{elem.name}> is unknown."
